@@ -1,4 +1,4 @@
 spring-mvc-rest
 ===============
 
-Spring MVC REST example
+Code for http://kimrudolph.de/blog/spring-mvc-rest-tutorial/
