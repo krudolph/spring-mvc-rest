@@ -14,38 +14,44 @@ import de.kimrudolph.tutorials.beans.Cat;
 import de.kimrudolph.tutorials.exceptions.CatNotFoundException;
 
 @Controller
-@RequestMapping("/cats")
+@RequestMapping(
+    value = "/cats",
+    headers = { "Accept=application/xml,application/json" })
 public class CatsController {
 
-    private Basket basket;
+    private final Basket basket;
 
     /**
      * Prefill the {@link Basket} with 2 cute {@link Cat}s.
      */
     public CatsController() {
+
         basket = new Basket();
 
-        Cat kitty = new Cat();
+        final Cat kitty = new Cat();
         kitty.setName("kitty");
         kitty.setCuteness(11);
         basket.add(kitty);
 
-        Cat cuddles = new Cat();
+        final Cat cuddles = new Cat();
         cuddles.setName("cuddles");
         cuddles.setCuteness(5);
         basket.add(cuddles);
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = "Accept=*/*")
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Basket getAll() {
+
         return basket;
     }
 
-    @RequestMapping(value = "{name}", method = RequestMethod.GET,
-            headers = "Accept=*/*")
+    @RequestMapping(
+        value = "{name}",
+        method = RequestMethod.GET,
+        headers = "Accept=*/*")
     @ResponseBody
-    public Cat get(@PathVariable String name) {
+    public Cat get(@PathVariable final String name) {
 
         if (null == basket.get(name)) {
             throw new CatNotFoundException();
@@ -54,17 +60,18 @@ public class CatsController {
         return basket.get(name);
     }
 
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=*/*")
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Cat create(@RequestBody Cat cat) {
+    public Cat create(@RequestBody final Cat cat) {
+
         basket.add(cat);
         return cat;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, headers = "Accept=*/*")
+    @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Cat cat) {
+    public void update(@RequestBody final Cat cat) {
 
         if (null == basket.get(cat.getName())) {
             throw new CatNotFoundException();
@@ -75,7 +82,7 @@ public class CatsController {
 
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String name) {
+    public void delete(@PathVariable final String name) {
 
         if (null == basket.get(name)) {
             throw new CatNotFoundException();
