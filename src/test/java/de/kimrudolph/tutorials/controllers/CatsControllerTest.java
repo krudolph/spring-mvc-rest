@@ -15,6 +15,7 @@ public class CatsControllerTest {
 
     @Test
     public void testGetCatJsonRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(get("/cats/kitty.json"))
@@ -25,12 +26,14 @@ public class CatsControllerTest {
 
     @Test
     public void testGetCatNotFoundJsonRequest() throws Exception {
+
         standaloneSetup(new CatsController()).build()
             .perform(get("/cats/wuff.json")).andExpect(status().isNotFound());
     }
 
     @Test
     public void testGetAllCatJsonRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(get("/cats.json"))
@@ -44,6 +47,7 @@ public class CatsControllerTest {
 
     @Test
     public void testCreateCatJsonRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(
@@ -58,6 +62,7 @@ public class CatsControllerTest {
 
     @Test
     public void testUpdateCatJsonRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(
@@ -68,6 +73,7 @@ public class CatsControllerTest {
 
     @Test
     public void testDeleteCatJsonRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(
@@ -77,6 +83,7 @@ public class CatsControllerTest {
 
     @Test
     public void testGetCatXmlRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(get("/cats/kitty.xml"))
@@ -91,6 +98,7 @@ public class CatsControllerTest {
 
     @Test
     public void testGetAllCatXmlRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(get("/cats.xml"))
@@ -101,13 +109,14 @@ public class CatsControllerTest {
                     .string(
                         "<?xml version=\"1.0\" encoding=\"UTF-8\" "
                             + "standalone=\"yes\"?><basket>"
-                            + "<cats><cuteness>11</cuteness><name>kitty</name></cats>"
-                            + "<cats><cuteness>5</cuteness><name>cuddles</name></cats>"
+                            + "<cat><cuteness>11</cuteness><name>kitty</name></cat>"
+                            + "<cat><cuteness>5</cuteness><name>cuddles</name></cat>"
                             + "</basket>"));
     }
 
     @Test
     public void testCreateCatXmlRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(
@@ -127,6 +136,7 @@ public class CatsControllerTest {
 
     @Test
     public void testUpdateCatXmlRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(
@@ -137,6 +147,7 @@ public class CatsControllerTest {
 
     @Test
     public void testDeleteCatXmlRequest() throws Exception {
+
         standaloneSetup(new CatsController())
             .build()
             .perform(
