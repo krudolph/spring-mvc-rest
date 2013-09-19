@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import de.kimrudolph.tutorials.exceptions.CatNotFoundException;
+
 /**
  * Container holding {@link Cat}s.
  */
@@ -37,7 +39,7 @@ public class Basket {
                 return cat;
             }
         }
-        return null;
+        throw new CatNotFoundException(name);
     }
 
     public void setCats(final List<Cat> cats) {

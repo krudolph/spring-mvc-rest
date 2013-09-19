@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import de.kimrudolph.tutorials.beans.Basket;
 import de.kimrudolph.tutorials.beans.Cat;
-import de.kimrudolph.tutorials.exceptions.CatNotFoundException;
 
 @Controller
 @RequestMapping(
@@ -46,16 +45,9 @@ public class CatsController {
         return basket;
     }
 
-    @RequestMapping(
-        value = "{name}",
-        method = RequestMethod.GET,
-        headers = "Accept=*/*")
+    @RequestMapping(value = "{name}", method = RequestMethod.GET)
     @ResponseBody
     public Cat get(@PathVariable final String name) {
-
-        if (null == basket.get(name)) {
-            throw new CatNotFoundException();
-        }
 
         return basket.get(name);
     }
@@ -73,20 +65,12 @@ public class CatsController {
     @ResponseStatus(HttpStatus.OK)
     public void update(@RequestBody final Cat cat) {
 
-        if (null == basket.get(cat.getName())) {
-            throw new CatNotFoundException();
-        }
-
         basket.get(cat.getName()).setCuteness(cat.getCuteness());
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable final String name) {
-
-        if (null == basket.get(name)) {
-            throw new CatNotFoundException();
-        }
 
         basket.remove(name);
     }

@@ -6,18 +6,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class CatsControllerTest {
+
+    private MockMvc service;
+
+    @Before
+    public void setup() {
+
+        service = MockMvcBuilders.standaloneSetup(new CatsController())
+            .build();
+    }
 
     @Test
     public void testGetCatJsonRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
+        service
             .perform(get("/cats/kitty.json"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -25,17 +35,9 @@ public class CatsControllerTest {
     }
 
     @Test
-    public void testGetCatNotFoundJsonRequest() throws Exception {
-
-        standaloneSetup(new CatsController()).build()
-            .perform(get("/cats/wuff.json")).andExpect(status().isNotFound());
-    }
-
-    @Test
     public void testGetAllCatJsonRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
+        service
             .perform(get("/cats.json"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -48,8 +50,7 @@ public class CatsControllerTest {
     @Test
     public void testCreateCatJsonRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
+        service
             .perform(
                 post("/cats").contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
@@ -63,29 +64,24 @@ public class CatsControllerTest {
     @Test
     public void testUpdateCatJsonRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
-            .perform(
-                put("/cats").contentType(MediaType.APPLICATION_JSON).content(
-                    "{\"name\":\"kitty\",\"cuteness\":10}"))
-            .andExpect(status().isOk());
+        service.perform(
+            put("/cats").contentType(MediaType.APPLICATION_JSON).content(
+                "{\"name\":\"kitty\",\"cuteness\":10}")).andExpect(
+            status().isOk());
     }
 
     @Test
     public void testDeleteCatJsonRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
-            .perform(
-                delete("/cats/kitty").contentType(MediaType.APPLICATION_JSON))
+        service.perform(
+            delete("/cats/kitty").contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
     }
 
     @Test
     public void testGetCatXmlRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
+        service
             .perform(get("/cats/kitty.xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML))
@@ -99,8 +95,7 @@ public class CatsControllerTest {
     @Test
     public void testGetAllCatXmlRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
+        service
             .perform(get("/cats.xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML))
@@ -117,8 +112,7 @@ public class CatsControllerTest {
     @Test
     public void testCreateCatXmlRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
+        service
             .perform(
                 post("/cats")
                     .contentType(MediaType.APPLICATION_XML)
@@ -137,21 +131,17 @@ public class CatsControllerTest {
     @Test
     public void testUpdateCatXmlRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
-            .perform(
-                put("/cats").contentType(MediaType.APPLICATION_XML).content(
-                    "<cat><cuteness>10</cuteness><name>kitty</name></cat>"))
+        service.perform(
+            put("/cats").contentType(MediaType.APPLICATION_XML).content(
+                "<cat><cuteness>10</cuteness><name>kitty</name></cat>"))
             .andExpect(status().isOk());
     }
 
     @Test
     public void testDeleteCatXmlRequest() throws Exception {
 
-        standaloneSetup(new CatsController())
-            .build()
-            .perform(
-                delete("/cats/kitty").contentType(MediaType.APPLICATION_XML))
+        service.perform(
+            delete("/cats/kitty").contentType(MediaType.APPLICATION_XML))
             .andExpect(status().isOk());
     }
 }
