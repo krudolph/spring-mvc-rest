@@ -15,34 +15,34 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.1.2</version>
+      <version>2.2.3</version>
     </dependency>
 
     <!-- XML Mapper -->
    <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
-      <version>2.2.9</version>
+      <version>2.2.11</version>
    </dependency>
 
     <!-- Basic spring mvc dependencies -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
+      <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>3.2.2.RELEASE</version>
+      <version>3.2.4.RELEASE</version>
     </dependency>
 
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>3.2.3.RELEASE</version>
+      <version>3.2.4.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
